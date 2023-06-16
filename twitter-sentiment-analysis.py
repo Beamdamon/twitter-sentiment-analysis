@@ -7,6 +7,7 @@ import tkinter.font as TkFont
 
 maxResults = 100
 
+#Scrapes twitter using scscrape twitter, adds the tweet content to the tweets array.
 def scraperSearch(query):
 
     scraper = sntwitter.TwitterSearchScraper(query)
@@ -18,6 +19,7 @@ def scraperSearch(query):
             break
     return tweets
 
+#Sentiment analysis of tweets using TextBlob
 def sentimentAnalysis(tweet):
     analyzedTweet = TextBlob(tweet)
     if analyzedTweet.sentiment.polarity > 0:
@@ -33,9 +35,10 @@ def main():
     negative = 0
     neutral = 0
 
-    #Uses getTweets, setting the query and the count
+    #Uses scraperSearch, setting the query
     tweets = scraperSearch('Reddit')
 
+    #Goes through each tweet in tweets array, determines sentiment, and upticks the counter accordingly. Then prints the tweet and its sentiment.
     for tweet in tweets:
         sentiment = sentimentAnalysis(tweet)
         if sentiment == 'positive':
@@ -49,6 +52,7 @@ def main():
         print('Sentiment:', sentiment)
         print("")
 
+    #Prints the total tweets, positive tweets, negative tweets, and neutral tweets
     print('Total Tweets:', maxResults) 
     print('Positive:', positive) 
     print('Negative:', negative) 
